@@ -1,8 +1,14 @@
+# First we'll import the os module which will allow us to create file paths across operating systems
 import os
+
+# Module for reading CSV files
 import csv
 
-#setting the path to collect data from the REsource folder
+#setting the path to collect data from the Resource folder
 budget_csv = os.path.join( 'Resources', 'budget_data.csv')
+
+#Specifying the file to write to  
+analysis_file = os.path.join( 'Analysis', 'budget_analysis.txt')
 
 #Defined the pyBank function to analyze profit/loss data
 def pyBank(profit_loss_data):
@@ -22,6 +28,8 @@ def pyBank(profit_loss_data):
 
     #Counter for tracking the row position
     i = 0
+
+    analysis_info = []
 
     #looping through the profit/loss data
     for rows in profit_loss_data:
@@ -67,13 +75,25 @@ def pyBank(profit_loss_data):
 
     #Calculating the average change by adding up the change value and dividing it by the number of changes 
     average = sum(average_change) / len(average_change)
-            
-    # Print the final analysis results
-    print(f'Total Months: {total_months}')
-    print(f'Total: ${net_amount}')
-    print(f'Average Change: ${average:.2f}')
-    print(f'Greatest Increase in Profits: {greatest_increased_profit["Date"]} (${greatest_increased_profit["Change"]})')
-    print(f'Greatest Decrease in Profits: {greatest_decreased_profit["Date"]} (${greatest_decreased_profit["Change"]})')
+
+    analysis_info.append('Financial Analysis')
+    analysis_info.append('--------------------------')
+    analysis_info.append(f'Total Months: {total_months}')
+    analysis_info.append(f'Total: ${net_amount}')
+    analysis_info.append(f'Average Change: ${average:.2f}')
+    analysis_info.append(f'Greatest Increase in Profits: {greatest_increased_profit["Date"]} (${greatest_increased_profit["Change"]})')
+    analysis_info.append(f'Greatest Decrease in Profits: {greatest_decreased_profit["Date"]} (${greatest_decreased_profit["Change"]})')
+
+    for rows in analysis_info:
+        print(rows)
+
+
+    # Open the file using "write" mode. Specify the variable to hold the contents
+    with open(analysis_file, 'w') as txt_file:
+
+        for rows in analysis_info:
+            # Write the second row
+            txt_file.write(rows + '\n')
 
 
 
@@ -85,9 +105,6 @@ with open(budget_csv) as csvfile:
 
     #Skip the header row in the CSV file
     header = next(csvreader)
-    
-    print('Financial Analysis')
-    print('--------------------------')
 
     #Calling the pyBank function to analyze the CSV data
     pyBank(csvreader)
