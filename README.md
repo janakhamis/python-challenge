@@ -4,13 +4,13 @@ This repository contains python scripts for two challenges (PyBank and PyPoll). 
 # PyBank
 The PyBank challenge focuses on analyzing financial information and providing a summary of important financial metrics. The script reads from the budget_data.csv file, which contains two columns ("Date and "Profit/Losses"). 
 
-# Objective:
-The python script calculates the folowing:
-  - Total Number of Months: The total number of months found in the dataset.
-  - Net Total Amount: The cumulative amount of the "Profit/Losses" column over the period.
-  - Average Change: The average monthly change in the profit/loss.
-  - Greatest Increase in Profits: The date and amount of the largest increase in profits.
-  - Greatest Decrease in Profits: The date and amount of the largest decrease in profits.
+  # Objective:
+  The python script calculates the folowing:
+    - Total Number of Months: The total number of months found in the dataset.
+    - Net Total Amount: The cumulative amount of the "Profit/Losses" column over the period.
+    - Average Change: The average monthly change in the profit/loss.
+    - Greatest Increase in Profits: The date and amount of the largest increase in profits.
+    - Greatest Decrease in Profits: The date and amount of the largest decrease in profits.
 
 # Files:
   - main.py: The python script that performs the analysis and outputs the results.
