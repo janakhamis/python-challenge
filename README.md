@@ -6,19 +6,19 @@ The PyBank challenge focuses on analyzing financial information and providing a 
 
 # Objective:
 The python script calculates the folowing:
-  - Total Number of Months: the total number of months found in the dataset.
-  - Net Total Amount: is the cumulative amount of the "Profit/Losses" column over the period.
-  - Average Change: the average monthly change in the profit/loss.
-  - Greatest Increase in Profits: the date and amount of the largest increase in profits.
-  - Greatest Decrease in Profits: the date and amount of the largest decrease in profits.
+  - Total Number of Months: The total number of months found in the dataset.
+  - Net Total Amount: The cumulative amount of the "Profit/Losses" column over the period.
+  - Average Change: The average monthly change in the profit/loss.
+  - Greatest Increase in Profits: The date and amount of the largest increase in profits.
+  - Greatest Decrease in Profits: The date and amount of the largest decrease in profits.
 
 # Files:
   - main.py: The python script that performs the analysis and outputs the results.
-  - Resources/budget_data.csv: The datasset containing the financial records.
+  - Resources/budget_data.csv: The dataset containing the financial records.
   - Analysis/budget_analysis.txt: The text file where the results are stored.
 
 # Output:
-The result of the PyBank script shows the "Total Months", "Total Amount", "Average Change", "Greatest Increase in Profits", and "Greatest Decrease in Profits". The result is printed to the terminal and stored as a text file in the Analysis folder.
+The result of the PyBank script shows the "Total Months", "Total", "Average Change", "Greatest Increase in Profits", and "Greatest Decrease in Profits". The result is printed to the terminal and stored as a text file (budget_analysis.txt) in the Analysis folder.
 
 # PyPoll
 
@@ -34,11 +34,11 @@ The python script calculates the folowing:
 
 # Files:
   - main.py: The python script that performs the analysis and outputs the results.
-  - Resources/election_data.csv: The datasset containing the financial records.
+  - Resources/election_data.csv: The dataset containing the financial records.
   - Analysis/election_analysis.txt: The text file where the results are stored.
 
 # Output:
-The result of the PyPoll script shows the "Total Votes", "Candidates's Names", each candidates percentage and vote count, and the winner of the election. The result is printed to the terminal and stored as a text file in the Analysis folder.
+The result of the PyPoll script shows the "Total Votes", "Candidates's Names", each candidates percentage and vote count, and the winner of the election. The result is printed to the terminal and stored as a text file (election_analysis.txt) in the Analysis folder.
 
 #How to Run
   1. Clone the repository:
@@ -51,7 +51,7 @@ The result of the PyPoll script shows the "Total Votes", "Candidates's Names", e
        2. Select the folder to open in VS code.
   4. Run the python scripts:
        1. Open the terminal in VS code by selecting from the top menu terminal > new terminal.
-       2. Navigate to the correct folder for the scriot you want to run:
+       2. Navigate to the correct folder for the script you want to run:
             1. For PyBank, run:
                  1. cd PyBank
                  2. python main.py
@@ -60,6 +60,8 @@ The result of the PyPoll script shows the "Total Votes", "Candidates's Names", e
                  2. python main.py
   5. View the output:
        - Once the script is executed the result will be printed in the terminal
-       - The results are saved  
+       - The results are also saved in the Analysis folder:
+           - budget_analysis.txt for the PyBank results
+           - election_analysis.txt for the Pypoll results
 
 
