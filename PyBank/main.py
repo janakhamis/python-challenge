@@ -1,98 +1,107 @@
-# First we'll import the os module which will allow us to create file paths across operating systems
+#First we'll import the os module which will allow us to create file paths across operating systems
 import os
 
-# Module for reading CSV files
+#Importing csv module for reading and processing CSV files
 import csv
 
-#setting the path to collect data from the Resource folder
+#Setting the path to collect data from the Resource folder
 budget_csv = os.path.join( 'Resources', 'budget_data.csv')
 
-#Specifying the file to write to  
+#Specifying the file path for writing the analysis results to a text file 
 analysis_file = os.path.join( 'Analysis', 'budget_analysis.txt')
 
 #Defined the pyBank function to analyze profit/loss data
 def pyBank(profit_loss_data):
 
-   #Initialize variables for counting total months and net profit/loss amount
+   #Initializing variables for counting total months and net profit/loss amount
     total_months = 0
     net_amount = 0 
+
+    #Initializing prev_profit_loss to 0 to store the previos month for calculating change
     prev_profit_loss = 0
+
+    #Initializing change to 0 to store the change in the profit/loss between months
     change = 0
 
-    # Creating a dictionary for greatest_increased_profit and greatest_decreased_profit to hold the change and date
-    greatest_increased_profit = {'Date': '', 'Change': 0}
-    greatest_decreased_profit = {'Date': '', 'Change': 0}
+    #Creating a dictionary for greatest_increased_profit and greatest_decreased_profit to hold the date and profit
+    greatest_increased_profit = {'Date': '', 'Profit': 0}
+    greatest_decreased_profit = {'Date': '', 'Profit': 0}
 
-    # List to store monthly changes in profit/loss
+    #Created an average_change List to store monthly changes in profit/loss and to be able to calculate the average change 
     average_change = []
 
     #Counter for tracking the row position
     i = 0
 
+    #Created an empty list to store analysis information for later printing and writing to the file
     analysis_info = []
 
-    #looping through the profit/loss data
+    #Looping through the profit_loss_data
     for rows in profit_loss_data:
 
-        #Extract date and profit/loss value from each row
+        #Extract the date from the first column of each row
         date = rows[0]
+        #Extract the profit/loss from the second column of each row and converted it to interger for calculations 
         profit_loss = int(rows[1])
 
-        #Counting the number of months
+        #Counting the total number of months
         total_months = total_months + 1 
 
-        #Adding the profit/loss column
+        #Adding the profit/loss column to get the net amount
         net_amount = net_amount + profit_loss
 
-        #
+        #Skipping the first row since there wasn't any previous month to compare
         if i > 0:
-            #calculate the change from the previous month
+            #Calculating the change in profit/loss from the previous month
             change = profit_loss - prev_profit_loss
 
-            #Store the calculated change in the average_change list
+            #Storing the calculated change in the average_change list
             average_change.append(change)
 
-            #checks if the current change is greater than the previous greatest increase in profit change
-            if change > greatest_increased_profit['Change']:
+            #Checking if the current change is greater than the greatest_increased_profit
+            if change > greatest_increased_profit['Profit']:
 
-                #Update the greatest increase in profit with the current date and change
+                #Updating the greatest increase in profit with the current date and profit value
                 greatest_increased_profit['Date'] = date
-                greatest_increased_profit['Change'] = change
+                greatest_increased_profit['Profit'] = change
                 
-            #checks if the current change is greater than the previous greatest decrease in profit change
-            if  change < greatest_decreased_profit['Change']:
+            #Checking if the current change is less than the greatest_decreased_profit
+            if  change < greatest_decreased_profit['Profit']:
 
-                #Update the greatest decrease in profit with the current date and change
+                #Updating the greatest decrease in profit with the current date and profit value
                 greatest_decreased_profit['Date'] = date
-                greatest_decreased_profit['Change'] = change
+                greatest_decreased_profit['Profit'] = change
                 
 
         #Setting the previous profit_loss value to the current value for the next iteration
         prev_profit_loss = profit_loss
 
-        #Increment the row counter
+        #Adding the row counter by 1
         i = i + 1
 
     #Calculating the average change by adding up the change value and dividing it by the number of changes 
     average = sum(average_change) / len(average_change)
 
+    #Append the results in the analysis_info list
     analysis_info.append('Financial Analysis')
     analysis_info.append('--------------------------')
     analysis_info.append(f'Total Months: {total_months}')
     analysis_info.append(f'Total: ${net_amount}')
-    analysis_info.append(f'Average Change: ${average:.2f}')
-    analysis_info.append(f'Greatest Increase in Profits: {greatest_increased_profit["Date"]} (${greatest_increased_profit["Change"]})')
-    analysis_info.append(f'Greatest Decrease in Profits: {greatest_decreased_profit["Date"]} (${greatest_decreased_profit["Change"]})')
+    analysis_info.append(f'Average Change: ${average:.2f}') #Researched how to format numbers to 2 decimal places using Python
+    analysis_info.append(f'Greatest Increase in Profits: {greatest_increased_profit["Date"]} (${greatest_increased_profit["Profit"]})')
+    analysis_info.append(f'Greatest Decrease in Profits: {greatest_decreased_profit["Date"]} (${greatest_decreased_profit["Profit"]})')
 
+    #Looping through the analysis_info list and print each line to the terminal
     for rows in analysis_info:
+        #printing the analysis_info list
         print(rows)
 
-
-    # Open the file using "write" mode. Specify the variable to hold the contents
+    #Open the file using "write" mode, which will write in the text file.
     with open(analysis_file, 'w') as txt_file:
-
+        #Loop through each line in the analysis_info list and write it to the text file
         for rows in analysis_info:
-            # Write the second row
+            #Write each row on a newline 
+            #I searched how to write each row on a line and found that I need to add '+ '\n''
             txt_file.write(rows + '\n')
 
 
@@ -106,5 +115,5 @@ with open(budget_csv) as csvfile:
     #Skip the header row in the CSV file
     header = next(csvreader)
 
-    #Calling the pyBank function to analyze the CSV data
+    #Calling the pyBank function and passing the csvreader as an argument 
     pyBank(csvreader)
